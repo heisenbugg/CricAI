@@ -4,10 +4,43 @@ import pickle
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 from sklearn import tree
+from sklearn import svm
 
 d = datasetRead.Dataset()
+
 dIF = dataInputFormat.DataInput()
 
+
+class ourSVMClassifier
+	def trainModel(self):
+		d.ReadLabelledDataSet()
+		self.TrainedSVMclf = SVMClassifier()
+		self.TrainedSVMclf.fit(d.X_train, d.Y_train)
+
+	def dumpPickle(self):
+		SVMPickleFile = "Pickle_SVMClf.pkl"
+		SVMPickledModel = open(SVMPickleFile,'wb')
+		pickle.dump(self.TrainedSVMclf,SVMPickledModel)
+		SVMPickledModel.close()
+
+	def loadPickle(self):
+		SVMPickleFile = "Pickle_SVMClf.pkl"
+		SVMPickledModel = open(SVMPickleFile,'rb')
+		self.SVMclf = pickle.load(SVMPickledModel)
+
+	def accuracyCheck(self):
+		d.ReadDataSet()
+		print("\nSVM Classifier:")
+		test_predicted = self.TrainedSVMclf.predict(d.X_test)
+		print("Accuracy for Testing Dataset:",accuracy_score(d.Y_test, test_predicted))
+		train_predicted = self.TrainedSVMclf.predict(d.X_train)
+		print("Accuracy for Training Dataset:",accuracy_score(d.Y_train, train_predicted))
+
+	def runModel(self,inputPrediction,t1,t2):
+		ourPrediction = self.SVMclf.predict([inputPrediction])
+	        print(ourPrediction)
+
+		
 class ourMLPClassifier:
 	def trainModel(self):
 		d.ReadDataSet()
