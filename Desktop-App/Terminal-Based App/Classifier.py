@@ -7,12 +7,13 @@ from sklearn import tree
 from sklearn import svm
 
 d = datasetRead.Dataset()
+
 dIF = dataInputFormat.DataInput()
 
 
 class ourSVMClassifier
 	def trainModel(self):
-		d.ReadDataSet()
+		d.ReadLabelledDataSet()
 		self.TrainedSVMclf = SVMClassifier()
 		self.TrainedSVMclf.fit(d.X_train, d.Y_train)
 
